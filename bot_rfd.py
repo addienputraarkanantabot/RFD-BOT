@@ -138,6 +138,14 @@ def receive_message():
         sender = message["from"]
         text = message["text"]["body"].strip()
 
+        if not any(char.isdigit() for char in text):
+            reply = (
+                "Halo, terima kasih telah menghubungi Hotline RFD.\n\n"
+                "Silakan masukkan CIF untuk pengecekan Program CASAvaganza."
+            )
+            send_wa(sender, reply)
+            return "OK", 200
+        
         cif_input = normalisasi(text)
 
         reply = proses_cif(cif_input, sender)
